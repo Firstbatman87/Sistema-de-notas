@@ -3,7 +3,7 @@ import sqlite3
 import sys
 
 def pasta_do_programa():
-    '''Descobre a pasta onde o programa está.'''
+    '''Descobre a pasta onde o programa está'''
     if getattr(sys, 'frozen', False):
         return os.path.dirname(sys.executable)
     return os.path.dirname(os.path.abspath(__file__))
@@ -14,7 +14,7 @@ def conectar():
     return sqlite3.connect(CAMINHO_BANCO)
 
 def criar_tabela():
-    '''Cria a tabela de alunos se ela ainda nao existir.'''
+    '''Cria a tabela de alunos se ela ainda não existir'''
     conn = conectar()
     conn.execute('''
         CREATE TABLE IF NOT EXISTS alunos (
@@ -45,28 +45,28 @@ def listar_alunos():
     return linhas
 
 def buscar_por_nome(texto):
-    '''Buscar aluno cujo nome contém o texto (ignora maiúsculo)'''
+    '''Buscar aluno cujo nome contém o texto (ignora maiúsculas)'''
     conn = conectar()
     linhas = conn.execute(
         'SELECT id, nome, nota1, nota2 FROM alunos WHERE nome LIKE ? ORDER BY nome',
-        (f"%{texto}%",)
-    ).fetchall
+        (f'%{texto}%',)
+    ).fetchall()
     conn.close()
     return linhas
 
 def buscar_por_id(id_aluno):
-    '''Devolve o aluno com esse id ou None se não existir.'''
+    '''Devolve o aluno com esse id ou None se não existir'''
     conn = conectar()
     aluno = conn.execute(
-        'SELECT id, nome, nota1, nota2 FROM alunos WHERE id = ?', (id_aluno)
-    ).fetchone
+        'SELECT id, nome, nota1, nota2 FROM alunos WHERE id = ?', (id_aluno,)
+    ).fetchone()
     conn.close()
     return aluno
 
 def atualizar_notas(id_aluno, nota1, nota2):
     conn = conectar()
     conn.execute(
-        'UPDATE alunos SET nota1 = ?, nota2 = ? WHERE id = ?', (id_aluno, nota1, nota2)
+        'UPDATE alunos SET nota1 = ?, nota2 = ? WHERE id = ?', (nota1, nota2, id_aluno)
     )
     conn.commit()
     conn.close()
@@ -74,7 +74,7 @@ def atualizar_notas(id_aluno, nota1, nota2):
 def remover_aluno(id_aluno):
     conn = conectar()
     conn.execute(
-        'DELETE FROM alunos WHERE id = ?', (id_aluno)
+        'DELETE FROM alunos WHERE id = ?', (id_aluno,)
     )
     conn.commit()
     conn.close()

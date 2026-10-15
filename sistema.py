@@ -126,7 +126,6 @@ def mostrar_relatorio():
     print(f"Reprovados      : {reprovados}")
     print(f"Melhor média    : {melhor_nome} ({melhor_media:.1f})")
 
-
 def main():
     banco.criar_tabela()          # garante que a tabela existe
     while True:
