@@ -42,9 +42,9 @@ request.args.get("busca") #}
                 <td><span class="selo {{ aluno.classe }}">{{ aluno.situacao }}</span></td>
                 <td class="acoes">
                     <a href="{{ url_for('editar', id_aluno=aluno.id) }}">Editar</a>
-                    <form action="{{ url_for('remover', id_aluno=aluno.id) }}" method="post"
-                        onsubmit="return confirm ('Remover {{ aluno.id }}?')"><button type="submit"
-                            class="perigo">Remover</button></form>
+                    <form action="{{ url_for('remover', id_aluno=aluno.id) }}" method="post" onsubmit="return confirm ('Remover {{ aluno.id }}?')">
+                        <button type="submit" class="perigo">Remover</button>
+                    </form>
                 </td>
             </tr>
             {% endfor %}
